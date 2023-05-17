@@ -1,3 +1,5 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -46,7 +48,7 @@ class Store {
     this.counter++;
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.counter, title: 'Новая запись'}]
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
 
@@ -57,6 +59,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -70,13 +73,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          item.selectedCount ? item.selectedCount : item.selectedCount = 0;
-          item.selected ? item.selectedCount += 1 : item.selectedCount;
-        } else {
-          item.selected = false;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? {...item, selected: false} : item;
       })
     })
   }
