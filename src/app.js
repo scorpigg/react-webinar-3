@@ -3,6 +3,7 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import { CartBlock } from './components/cart-block';
 
 /**
  * Приложение
@@ -26,10 +27,7 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls 
-        innerText='Перейти' 
-        onClick={callbacks.onAddItem}
-      />
+      <CartBlock cart={store.state.cart}/>
       <List 
         list={list}
         onAddItem={callbacks.onAddItem}
