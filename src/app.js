@@ -1,9 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import { CartBlock } from './components/cart-block';
+import { Cart } from './components/cart';
 
 /**
  * Приложение
@@ -16,7 +17,7 @@ function App({store}) {
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
+      store.deleteCartItem(code);
     }, [store]),
 
     onAddItem: useCallback((item) => {
@@ -24,14 +25,27 @@ function App({store}) {
     }, [store])
   }
 
+  const [isCartShow, setIsCartShow] = useState(false);
+
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <CartBlock cart={store.state.cart}/>
+      <Head 
+        title='Магазин'
+      />
+      <CartBlock 
+        cart={store.state.cart}
+        setIsCartShow={setIsCartShow}
+      />
       <List 
         list={list}
         onAddItem={callbacks.onAddItem}
       />
+      {isCartShow && 
+      <Cart 
+        cart={store.state.cart}
+        onDeleteItem={callbacks.onDeleteItem}
+        setIsCartShow={setIsCartShow}
+      />}
     </PageLayout>
   );
 }

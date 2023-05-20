@@ -3,10 +3,10 @@ import {plural} from "../../utils";
 import Controls from "../controls/index";
 import './style.css';
 
-export const CartBlock = ({cart}) => {
+export const CartBlock = (props) => {
 
-  const cartItemsCount = cart.reduce((acc, item) => acc + item.count, 0);
-  const cartItemsPrice = cart.reduce((acc, item) => acc + item.count * item.price, 0);
+  const cartItemsCount = props.cart.reduce((acc, item) => acc + item.count, 0);
+  const cartItemsPrice = props.cart.reduce((acc, item) => acc + item.count * item.price, 0);
 
   return (
     <div className='Cart-block'>
@@ -23,6 +23,7 @@ export const CartBlock = ({cart}) => {
       </div>
       <Controls 
         innerText='Перейти'
+        onClick={() => props.setIsCartShow(true)}
       />
     </div>
   )
