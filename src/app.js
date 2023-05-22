@@ -45,6 +45,7 @@ function App({store}) {
       {isCartShow && 
       <Cart 
         cart={store.state.cart}
+        cartItemsPrice={store.state.cartItemsPrice}
         onDeleteItem={callbacks.onDeleteItem}
         setIsCartShow={setIsCartShow}
       />}

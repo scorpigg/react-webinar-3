@@ -23,7 +23,7 @@ export const Cart = (props) => {
             />
           )}
         </ul>
-        <CartTotalPrice cart={props.cart}/>
+        <CartTotalPrice cartItemsPrice={props.cartItemsPrice}/>
       </div>
       <Overlay/>
     </div>

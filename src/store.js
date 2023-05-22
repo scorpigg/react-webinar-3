@@ -50,6 +50,7 @@ class Store {
       this.setState({
         ...this.state,
         cart: this.state.cart.map(cartItem => cartItem.code === item.code ? {...cartItem, count: cartItem.count + 1} : cartItem),
+        cartItemsPrice: this.state.cartItemsPrice + item.price
       })
     } else {
       this.setState({
@@ -57,9 +58,9 @@ class Store {
         cart: [...this.state.cart, {...item, count: 1}],
         cartState: this.state.cart,
         cartItemsCount: this.state.cartItemsCount ? this.state.cartItemsCount + 1 : 1,
+        cartItemsPrice: this.state.cartItemsPrice ? this.state.cartItemsPrice + item.price : item.price
       })
     }
-    console.log(this.state);
   };
 
   /**
@@ -67,11 +68,14 @@ class Store {
    * @param code
    */
   deleteCartItem(code) {
+    const cartItem = this.state.cart.find(listItem => listItem.code === code);
+
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code),
-      cartItemsCount: this.cartItemsCount - 1
+      cartItemsCount: this.state.cartItemsCount - 1,
+      cartItemsPrice: this.state.cartItemsPrice - cartItem.price * cartItem.count
     })
   };
 
