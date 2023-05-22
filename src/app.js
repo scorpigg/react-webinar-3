@@ -20,8 +20,8 @@ function App({store}) {
       store.deleteCartItem(code);
     }, [store]),
 
-    onAddItem: useCallback((item) => {
-      store.addItemToCart(item);
+    onAddItem: useCallback((code) => {
+      store.addItemToCart(code);
     }, [store])
   }
 
@@ -34,6 +34,8 @@ function App({store}) {
       />
       <CartBlock 
         cart={store.state.cart}
+        cartItemsCount={store.state.cartItemsCount}
+        cartItemsPrice={store.state.cartItemsPrice}
         setIsCartShow={setIsCartShow}
       />
       <List 

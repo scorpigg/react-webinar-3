@@ -1,5 +1,5 @@
 import React from 'react';
-import {plural} from "../../utils";
+import {numberFormat, plural} from "../../utils";
 import Controls from "../controls/index";
 import './style.css';
 
@@ -15,7 +15,7 @@ export const CartBlock = (props) => {
         <span className='Cart-block-text'>
           {
             cartItemsCount ? 
-              ` ${cartItemsCount} ${plural(cartItemsCount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${cartItemsPrice} \u20bd`
+              ` ${cartItemsCount} ${plural(cartItemsCount, {one: 'товар', few: 'товара', many: 'товаров'})} / ${numberFormat(cartItemsPrice)} \u20bd`
               : 
               ' пусто'
           }

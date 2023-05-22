@@ -43,18 +43,23 @@ class Store {
   /**
    * Добавление товара в корзину
    */
-  addItemToCart(item) {
-    if (this.state.cart.some(cartItem => cartItem.code === item.code)) {
+  addItemToCart(code) {
+    const item = this.state.list.find(listItem => listItem.code === code);
+
+    if (this.state.cart.some(cartItem => cartItem.code === code)) {
       this.setState({
         ...this.state,
-        cart: this.state.cart.map(cartItem => cartItem.code === item.code ? {...cartItem, count: cartItem.count + 1} : cartItem)
+        cart: this.state.cart.map(cartItem => cartItem.code === item.code ? {...cartItem, count: cartItem.count + 1} : cartItem),
       })
     } else {
       this.setState({
         ...this.state,
-        cart: [...this.state.cart, {...item, count: 1}]
+        cart: [...this.state.cart, {...item, count: 1}],
+        cartState: this.state.cart,
+        cartItemsCount: this.state.cartItemsCount ? this.state.cartItemsCount + 1 : 1,
       })
     }
+    console.log(this.state);
   };
 
   /**
@@ -65,7 +70,8 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      cart: this.state.cart.filter(item => item.code !== code)
+      cart: this.state.cart.filter(item => item.code !== code),
+      cartItemsCount: this.cartItemsCount - 1
     })
   };
 
